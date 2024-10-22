@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaji Bulanan</title>
+</head>
+<body>
+    <script>
+        class Employee {
+            constructor(name, salary) {
+                this.name = name;
+                this.salary = salary;
+            }
+
+            hitungGajiTahunan() {
+                return this.salary * 12;
+            }
+
+            displayDetails() {
+                console.info(`Nama Pegawai: ${this.name}`);
+                console.info(`Gaji Bulanan: Rp${this.salary}`);
+            }
+        }
+
+        class Manager extends Employee {
+            constructor(name, salary, departemen) {
+                super(name, salary);
+                this.departemen = departemen;
+            }
+
+            hitungGajiTahunan() {
+                const bonus = 0.1 * this.salary * 12;
+                return super.hitungGajiTahunan() + bonus;
+            }
+
+            displayDetails() {
+                super.displayDetails();
+                console.info(`Manager: ${this.name}`);
+                console.info(`Departemen: ${this.departemen}`);
+                console.info(`Bonus (10% dari gaji pokok): Rp${(0.1 * this.salary * 12)}`);
+            }
+        }
+
+        const manager1 = new Manager("Kyla Saimimma", 10000000, "Marketing");
+        const manager2 = new Manager("Dinda Almaira", 15500000, "Marketing");
+
+        manager1.displayDetails();
+        console.info(`Gaji Tahunan: Rp${manager1.hitungGajiTahunan()}\n`);
+
+        console.log(''); 
+
+        manager2.displayDetails();
+        console.info(`Gaji Tahunan: Rp${manager2.hitungGajiTahunan()}`);
+    </script>
+</body>
+</html>

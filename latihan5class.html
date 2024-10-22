@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASS BOOK</title>
+</head>
+<body>
+    <script>
+        class Book {
+            constructor(title, author, year) {
+                this._title = title; 
+                this._author = author;
+                this._year = year;
+            }
+
+            get title() {
+                return this._title;
+            }
+
+            set title(newTitle) {
+                if (!newTitle) {
+                    throw new Error("Judul tidak boleh kosong.");
+                }
+                this._title = newTitle;
+            }
+
+            get author() {
+                return this._author;
+            }
+
+            set author(newAuthor) {
+                if (!newAuthor) {
+                    throw new Error("Penulis tidak boleh kosong.");
+                }
+                this._author = newAuthor;
+            }
+
+            get year() {
+                return this._year;
+            }
+
+            set year(newYear) {
+                if (isNaN(newYear) || newYear <= 0) {
+                    throw new Error("Tahun harus berupa angka yang valid.");
+                }
+                this._year = newYear;
+            }
+
+            bookDetails() {
+                console.log(`Judul: ${this.title}`);
+                console.log(`Penulis: ${this.author}`);
+                console.log(`Tahun: ${this.year}`);
+            }
+        }
+
+        class Ebook extends Book {
+            constructor(title, author, year, harga) {
+                super(title, author, year);
+                this._harga = harga;
+            }
+
+            get harga() {
+                return this._harga;
+            }
+
+            set harga(newHarga) {
+                if (isNaN(newHarga) || newHarga <= 0) {
+                    throw new Error("Harga harus berupa angka dan lebih besar dari 0.");
+                }
+                this._harga = newHarga;
+            }
+
+            bookDetails() {
+                super.bookDetails(); 
+                console.info(`Harga: Rp${this.harga}`);
+            }
+        }
+
+        function validateEbook(title, author, year, harga) {
+            if (!title) {
+                throw new Error("Judul tidak boleh kosong.");
+            }
+            if (isNaN(harga) || typeof harga !== "number") {
+                throw new Error("Harga harus berupa angka.");
+            }
+        }
+
+        try {
+            const title = "Belajar JavaScript";
+            const author = "John Doe"; 
+            const year = 2023; 
+            const harga = 150000; 
+
+            validateEbook(title, author, year, harga);
+
+            const ebook1 = new Ebook(title, author, year, harga);
+
+            ebook1.title = "Belajar JS Lanjutan";
+            ebook1.harga = 175000;
+
+            ebook1.bookDetails();
+        } catch (error) {
+            console.error(error.message);
+        }
+    </script>
+</body>
+</html>

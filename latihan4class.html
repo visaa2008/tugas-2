@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Cabang</title>
+</head>
+<body>
+    <script>
+        const namaCabangSet = new Set();
+
+        class Bank {
+            constructor(namaBank) {
+                this._namaBank = namaBank;
+                this._kantorCabang = [];
+            }
+
+            get namaBank() {
+                return this._namaBank;
+            }
+
+            set namaBank(namaBaru) {
+                if (!namaBaru) {
+                    throw new Error('Nama bank tidak boleh kosong.');
+                }
+                this._namaBank = namaBaru;
+            }
+
+            get kantorCabang() {
+                return this._kantorCabang;
+            }
+
+            tambahCabang(namaCabang) {
+                if (namaCabangSet.has(namaCabang)) {
+                    console.info(`Kantor cabang "${namaCabang}" sudah ada!`);
+                } else {
+                    this._kantorCabang.push(namaCabang);
+                    namaCabangSet.add(namaCabang);
+                    console.info(`Kantor cabang "${namaCabang}" berhasil ditambahkan.`);
+                }
+            }
+
+            hapusCabang(namaCabang) {
+                const index = this._kantorCabang.indexOf(namaCabang);
+                if (index !== -1) {
+                    this._kantorCabang.splice(index, 1);
+                    namaCabangSet.delete(namaCabang);
+                    console.info(`Kantor cabang "${namaCabang}" berhasil dihapus.`);
+                } else {
+                    console.info(`Kantor cabang "${namaCabang}" tidak ditemukan.`);
+                }
+            }
+
+            // Method untuk menampilkan semua kantor cabang
+            tampilkanSemuaCabang() {
+                console.info(`Daftar Kantor Cabang ${this._namaBank}:`);
+                if (this._kantorCabang.length > 0) {
+                    this._kantorCabang.forEach((cabang, index) => {
+                        console.info(`${index + 1}. ${cabang}`);
+                    });
+                } else {
+                    console.info('Tidak ada kantor cabang.');
+                }
+            }
+        }
+
+        const bankABC = new Bank('Bank ABC');
+
+        bankABC.tambahCabang('Cabang Jakarta');
+        bankABC.tambahCabang('Cabang Surabaya');
+        bankABC.tambahCabang('Cabang Bandung');
+
+        bankABC.tambahCabang('Cabang Jakarta');
+
+        bankABC.tampilkanSemuaCabang();
+
+        bankABC.hapusCabang('Cabang Surabaya');
+
+        bankABC.tampilkanSemuaCabang();
+    </script>
+</body>
+</html>
